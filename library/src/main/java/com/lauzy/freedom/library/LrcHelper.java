@@ -9,13 +9,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +25,6 @@ import java.util.regex.Pattern;
  */
 public class LrcHelper {
 
-    private static final SimpleDateFormat FORMAT = new SimpleDateFormat("mm:ss", Locale.CHINA);
     private static final String CHARSET = "utf-8";
     //[03:56.00][03:18.00][02:06.00][01:07.00]原谅我这一生不羁放纵爱自由
     private static final String LINE_REGEX = "((\\[\\d{2}:\\d{2}\\.\\d{2}])+)(.*)";
@@ -61,9 +57,6 @@ public class LrcHelper {
             br = new BufferedReader(isr);
             String line;
             while ((line = br.readLine()) != null) {
-                if (line.trim().equals("")) {
-                    continue;
-                }
                 List<Lrc> lrcList = parseLrc(line);
                 if (lrcList != null && lrcList.size() != 0) {
                     lrcs.addAll(lrcList);
@@ -127,13 +120,15 @@ public class LrcHelper {
     }
 
     public static String formatTime(long time) {
-        Date date = new Date(time);
-        String str = "";
-        try {
-            str = FORMAT.format(date);
-        } catch (Exception e) {
-            e.printStackTrace();
+        int min = (int) (time / 60000);
+        int sec = (int) (time / 1000 % 60);
+        return adjustFormat(min) + ":" + adjustFormat(sec);
+    }
+
+    private static String adjustFormat(int time) {
+        if (time < 10) {
+            return "0" + time;
         }
-        return str;
+        return time + "";
     }
 }
