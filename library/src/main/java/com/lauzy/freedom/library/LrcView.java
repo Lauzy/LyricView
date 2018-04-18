@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Looper;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -256,7 +257,7 @@ public class LrcView extends View {
         if (mCurrentLine != linePosition) {
             mCurrentLine = linePosition;
             if (isUserScroll) {
-                postInvalidate();
+                invalidateView();
                 return;
             }
             ViewCompat.postOnAnimation(LrcView.this, mScrollRunnable);
@@ -291,7 +292,7 @@ public class LrcView extends View {
         @Override
         public void run() {
             isShowTimeIndicator = false;
-            postInvalidate();
+            invalidateView();
         }
     };
 
@@ -303,7 +304,7 @@ public class LrcView extends View {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 mOffset = (float) animation.getAnimatedValue();
-                postInvalidate();
+                invalidateView();
             }
         });
         animator.setDuration(300);
@@ -389,14 +390,14 @@ public class LrcView extends View {
                         mOffset = Math.min(mOffset, maxHeight + getTextHeight(getLrcCount() - 1) + mLrcLineSpaceHeight);
                     }
                     mLastMotionY = event.getY();
-                    postInvalidate();
+                    invalidateView();
                 }
                 break;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 if (!isDragging && (!isShowTimeIndicator || !onClickPlayButton(event))) {
                     isShowTimeIndicator = false;
-                    postInvalidate();
+                    invalidateView();
                     performClick();
                 }
                 handleActionUp(event);
@@ -412,7 +413,7 @@ public class LrcView extends View {
         }
         if (isShowTimeIndicator && mPlayRect != null && onClickPlayButton(event)) {
             isShowTimeIndicator = false;
-            postInvalidate();
+            invalidateView();
             if (mOnPlayIndicatorLineListener != null) {
                 mOnPlayIndicatorLineListener.onPlay(mLrcData.get(getIndicatePosition()).getTime(),
                         mLrcData.get(getIndicatePosition()).getText());
@@ -441,7 +442,7 @@ public class LrcView extends View {
             mOverScroller.fling(0, (int) mOffset, 0, (int) (-YVelocity), 0,
                     0, 0, (int) getItemOffsetY(getLrcCount() - 1),
                     0, (int) getTextHeight(0));
-            postInvalidate();
+            invalidateView();
         }
         releaseVelocityTracker();
         if (isAutoAdjustPosition) {
@@ -465,7 +466,7 @@ public class LrcView extends View {
         super.computeScroll();
         if (mOverScroller.computeScrollOffset()) {
             mOffset = mOverScroller.getCurrY();
-            postInvalidate();
+            invalidateView();
         }
     }
 
@@ -509,13 +510,21 @@ public class LrcView extends View {
 
     public void pause() {
         isAutoAdjustPosition = false;
-        postInvalidate();
+        invalidateView();
     }
 
     public void resume() {
         isAutoAdjustPosition = true;
         ViewCompat.postOnAnimationDelayed(LrcView.this, mScrollRunnable, mTouchDelay);
-        postInvalidate();
+        invalidateView();
+    }
+
+    private void invalidateView() {
+        if (Looper.getMainLooper().getThread() == Thread.currentThread()) {
+            invalidate();
+        } else {
+            postInvalidate();
+        }
     }
 
 
@@ -534,32 +543,32 @@ public class LrcView extends View {
 
     public void setDefaultContent(String defaultContent) {
         mDefaultContent = defaultContent;
-        postInvalidate();
+        invalidateView();
     }
 
     public void setLrcTextSize(float lrcTextSize) {
         mLrcTextSize = lrcTextSize;
-        postInvalidate();
+        invalidateView();
     }
 
     public void setLrcLineSpaceHeight(float lrcLineSpaceHeight) {
         mLrcLineSpaceHeight = lrcLineSpaceHeight;
-        postInvalidate();
+        invalidateView();
     }
 
     public void setTouchDelay(int touchDelay) {
         mTouchDelay = touchDelay;
-        postInvalidate();
+        invalidateView();
     }
 
     public void setNormalColor(@ColorInt int normalColor) {
         mNormalColor = normalColor;
-        postInvalidate();
+        invalidateView();
     }
 
     public void setCurrentPlayLineColor(@ColorInt int currentPlayLineColor) {
         mCurrentPlayLineColor = currentPlayLineColor;
-        postInvalidate();
+        invalidateView();
     }
 
     public float getHorizontalPadding() {
@@ -568,7 +577,7 @@ public class LrcView extends View {
 
     public void setHorizontalPadding(float horizontalPadding) {
         mHorizontalPadding = horizontalPadding;
-        postInvalidate();
+        invalidateView();
     }
 
     public float getVerticalPadding() {
@@ -577,63 +586,63 @@ public class LrcView extends View {
 
     public void setVerticalPadding(float verticalPadding) {
         mVerticalPadding = verticalPadding;
-        postInvalidate();
+        invalidateView();
     }
 
     public void setNoLrcTextSize(float noLrcTextSize) {
         mNoLrcTextSize = noLrcTextSize;
-        postInvalidate();
+        invalidateView();
     }
 
     public void setNoLrcTextColor(@ColorInt int noLrcTextColor) {
         mNoLrcTextColor = noLrcTextColor;
-        postInvalidate();
+        invalidateView();
     }
 
     public void setIndicatorLineWidth(float indicatorLineWidth) {
         mIndicatorLineWidth = indicatorLineWidth;
-        postInvalidate();
+        invalidateView();
     }
 
     public void setIndicatorTextSize(float indicatorTextSize) {
 //        mIndicatorTextSize = indicatorTextSize;
         mIndicatorPaint.setTextSize(indicatorTextSize);
-        postInvalidate();
+        invalidateView();
     }
 
     public void setCurrentIndicateLineTextColor(int currentIndicateLineTextColor) {
         mCurrentIndicateLineTextColor = currentIndicateLineTextColor;
-        postInvalidate();
+        invalidateView();
     }
 
     public void setIndicatorLineColor(int indicatorLineColor) {
         mIndicatorLineColor = indicatorLineColor;
-        postInvalidate();
+        invalidateView();
     }
 
     public void setIndicatorMargin(float indicatorMargin) {
         mIndicatorMargin = indicatorMargin;
-        postInvalidate();
+        invalidateView();
     }
 
     public void setIconLineGap(float iconLineGap) {
         mIconLineGap = iconLineGap;
-        postInvalidate();
+        invalidateView();
     }
 
     public void setIconWidth(float iconWidth) {
         mIconWidth = iconWidth;
-        postInvalidate();
+        invalidateView();
     }
 
     public void setIconHeight(float iconHeight) {
         mIconHeight = iconHeight;
-        postInvalidate();
+        invalidateView();
     }
 
     public void setEnableShowIndicator(boolean enableShowIndicator) {
         isEnableShowIndicator = enableShowIndicator;
-        postInvalidate();
+        invalidateView();
     }
 
     public Drawable getPlayDrawable() {
@@ -643,11 +652,11 @@ public class LrcView extends View {
     public void setPlayDrawable(Drawable playDrawable) {
         mPlayDrawable = playDrawable;
         mPlayDrawable.setBounds(mPlayRect);
-        postInvalidate();
+        invalidateView();
     }
 
     public void setIndicatorTextColor(int indicatorTextColor) {
         mIndicatorTextColor = indicatorTextColor;
-        postInvalidate();
+        invalidateView();
     }
 }
