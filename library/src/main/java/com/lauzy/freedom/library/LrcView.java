@@ -210,6 +210,7 @@ public class LrcView extends View {
             long time = mLrcData.get(indicatePosition).getTime();
             mIndicatorPaint.getTextBounds(LrcHelper.formatTime(time), 0,
                     (LrcHelper.formatTime(time)).length(), mIndicateTimeBounds);
+            mIndicatorPaint.setColor(mIndicatorLineColor);
             canvas.drawLine(mPlayRect.right + mIconLineGap, getHeight() / 2,
                     getWidth() - mIndicateTimeBounds.width() * 1.4f, getHeight() / 2, mIndicatorPaint);
             int baseX = (int) (getWidth() - mIndicateTimeBounds.width() * 1.2f);

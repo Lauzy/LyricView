@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -15,9 +16,8 @@ import com.lauzy.freedom.library.LrcView;
 import java.io.IOException;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private long mCurrentTime;
     private MediaPlayer mMediaPlayer = new MediaPlayer();
     private LrcView mLrcView;
     private Handler mHandler = new Handler();
@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
         mSeekBar = findViewById(R.id.seek_play);
         mTvStart = findViewById(R.id.tv_start);
         mTvEnd = findViewById(R.id.tv_end);
+        findViewById(R.id.btn_play).setOnClickListener(this);
+        findViewById(R.id.btn_pause).setOnClickListener(this);
         mLrcView.setLrcData(lrcs);
         mLrcView.setOnPlayIndicatorLineListener(new LrcView.OnPlayIndicatorLineListener() {
             @Override
@@ -95,5 +97,19 @@ public class MainActivity extends AppCompatActivity {
                 mMediaPlayer.seekTo(seekBar.getProgress());
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_play:
+                mMediaPlayer.start();
+                mLrcView.resume();
+                break;
+            case R.id.btn_pause:
+                mMediaPlayer.pause();
+                mLrcView.pause();
+                break;
+        }
     }
 }
