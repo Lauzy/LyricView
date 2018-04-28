@@ -542,7 +542,7 @@ public class LrcView extends View {
     }
 
 
-    public void setDefaultContent(String defaultContent) {
+    public void setEmptyContent(String defaultContent) {
         mDefaultContent = defaultContent;
         invalidateView();
     }
