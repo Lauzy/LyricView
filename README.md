@@ -1,6 +1,10 @@
 # LyricView
 [![](https://jitpack.io/v/Lauzy/LyricView.svg)](https://jitpack.io/#Lauzy/LyricView)
 
+## Screenshots
+
+<img src="/screenshots/20180428_LyricView_screen_shot_01.png" alt="screenshot" title="screenshot" width="270" height="460" />  <img src="/screenshots/20180428_LyricView_screen_shot_02.png" alt="screenshot" title="screenshot" width="270" height="460" />
+
 ## Download
 
 ```java
