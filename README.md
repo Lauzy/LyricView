@@ -1,6 +1,8 @@
 # LyricView
 [![](https://jitpack.io/v/Lauzy/LyricView.svg)](https://jitpack.io/#Lauzy/LyricView)
 
+[download demo apk](https://github.com/Lauzy/LyricView/raw/master/apk/lrc_demo.apk).
+
 ## Screenshots
 
 <img src="/screenshots/20180428_LyricView_screen_shot_01.png" alt="screenshot" title="screenshot" width="270" height="460" />  <img src="/screenshots/20180428_LyricView_screen_shot_02.png" alt="screenshot" title="screenshot" width="270" height="460" />
@@ -46,7 +48,7 @@ Set up lyric data:
       mLrcView.setLrcData(lrcs);
 
 ```
-Update playing progress:
+Update the lyric according to playing process:
 
 ```java
 
@@ -67,7 +69,7 @@ Seek to a specific time by indicator:
 
 ```
 
-Set prompt while there is no lyric data:
+Set the description while there is no lyric data:
 
 ```java
 
