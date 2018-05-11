@@ -1,15 +1,13 @@
 # LyricView
 [![](https://jitpack.io/v/Lauzy/LyricView.svg)](https://jitpack.io/#Lauzy/LyricView)
 
-[中文版 readme](https://github.com/Lauzy/LyricView/blob/master/README_CN.md)
+[下载 apk 体验](https://github.com/Lauzy/LyricView/raw/master/apk/lrc_demo.apk).
 
-[download demo apk](https://github.com/Lauzy/LyricView/raw/master/apk/lrc_demo.apk).
-
-## Screenshots
+## 截图
 
 <img src="/screenshots/20180428_LyricView_screen_shot_01.png" alt="screenshot" title="screenshot" width="270" height="460" />  <img src="/screenshots/20180428_LyricView_screen_shot_02.png" alt="screenshot" title="screenshot" width="270" height="460" />
 
-## Download
+## 配置
 
 ```java
     all projects {
@@ -24,11 +22,11 @@
     	}
 ```
 
-The latest version code is [here](https://github.com/Lauzy/LyricView/releases).
+最新的版本号，点击[这里](https://github.com/Lauzy/LyricView/releases)获取.
 
-## Usage
+## 用法
 
-Xml file：
+Xml 文件：
 
 ```java
 
@@ -41,16 +39,16 @@ Xml file：
 
 ```
 
-## Functions:
+## 功能:
 
-Set up lyric data:
+设置歌词数据:
 
 ```java
 
       mLrcView.setLrcData(lrcs);
 
 ```
-Update the lyric according to playing process:
+根据播放进度更新歌词:
 
 ```java
 
@@ -58,7 +56,7 @@ Update the lyric according to playing process:
 
 ```
 
-Seek to a specific time by indicator:
+通过指示器，跳转至具体的时间:
 
 ```java
 
@@ -71,7 +69,7 @@ Seek to a specific time by indicator:
 
 ```
 
-Set the description while there is no lyric data:
+歌词数据为空时，设置内容为空的提示:
 
 ```java
 
@@ -79,7 +77,7 @@ Set the description while there is no lyric data:
 
 ```
 
-## Attributes：
+## 属性：
 ```java
 
         <attr name="lrcTextSize" format="dimension"/>
@@ -94,18 +92,18 @@ Set the description while there is no lyric data:
         <attr name="indicatorLineHeight" format="dimension"/>
         <attr name="indicatorTextSize" format="dimension"/>
         <attr name="indicatorTextColor" format="reference|color"/>
-        <attr name="currentIndicateLrcColor" format="reference|color"/> //current lyric line color
-        <attr name="indicatorTouchDelay" format="integer"/>    //delay of indicator's disappearance
-        <attr name="indicatorLineColor" format="reference|color"/> // color of indicator line
-        <attr name="indicatorStartEndMargin" format="dimension"/>  //start and end margin of indicator
-        <attr name="iconLineGap" format="dimension"/>   // space between indicator's playing icon and line
+        <attr name="currentIndicateLrcColor" format="reference|color"/> //当前歌词的颜色
+        <attr name="indicatorTouchDelay" format="integer"/>    //指示器消失延迟
+        <attr name="indicatorLineColor" format="reference|color"/> // 指示器线条颜色
+        <attr name="indicatorStartEndMargin" format="dimension"/>  //指示器左右margin
+        <attr name="iconLineGap" format="dimension"/>   // 指示器图标和线条的距离
         <attr name="playIconWidth" format="dimension"/>
         <attr name="playIconHeight" format="dimension"/>
-        <attr name="playIcon" format="reference"/>   // indicator's playing icon
+        <attr name="playIcon" format="reference"/>   // 指示器图标
 
 ```
 
-## License
+## 协议
 
 ```
 Copyright (c) 2017-present Lauzy
