@@ -509,11 +509,17 @@ public class LrcView extends View {
                 spVal, context.getResources().getDisplayMetrics());
     }
 
+    /**
+     * 暂停（手动滑动歌词后，不再自动回滚至当前播放位置）
+     */
     public void pause() {
         isAutoAdjustPosition = false;
         invalidateView();
     }
 
+    /**
+     * 恢复（继续自动回滚）
+     */
     public void resume() {
         isAutoAdjustPosition = true;
         ViewCompat.postOnAnimationDelayed(LrcView.this, mScrollRunnable, mTouchDelay);

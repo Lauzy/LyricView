@@ -86,7 +86,7 @@ Xml 文件：
         <attr name="lrcCurrentTextColor" format="reference|color"/>
         <attr name="lrcHorizontalPadding" format="dimension"/>
         <attr name="lrcVerticalPadding" format="dimension"/>
-        <attr name="lrcTouchDelay" format="integer"/>   //delay of rolling back
+        <attr name="lrcTouchDelay" format="integer"/>   //手动滑动后，回滚至当前播放位置的延迟
         <attr name="noLrcTextSize" format="dimension"/>
         <attr name="noLrcTextColor" format="reference|color"/>
         <attr name="indicatorLineHeight" format="dimension"/>
