@@ -22,6 +22,7 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.OverScroller;
 
 import java.util.HashMap;
@@ -127,7 +128,9 @@ public class LrcView extends View {
         mScaledTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         mMaximumFlingVelocity = ViewConfiguration.get(context).getScaledMaximumFlingVelocity();
         mMinimumFlingVelocity = ViewConfiguration.get(context).getScaledMinimumFlingVelocity();
-        mOverScroller = new OverScroller(context);
+        mOverScroller = new OverScroller(context,new DecelerateInterpolator());
+        mOverScroller.setFriction(0.1f);
+//        ViewConfiguration.getScrollFriction();  默认摩擦力 0.015f
 
         mTextPaint = new TextPaint();
         mTextPaint.setAntiAlias(true);
@@ -382,14 +385,18 @@ public class LrcView extends View {
                     isShowTimeIndicator = isEnableShowIndicator;
                 }
                 if (isDragging) {
-                    mOffset -= moveY;
-                    if (mOffset < 0) {
-                        mOffset = Math.max(mOffset, -getTextHeight(0) - mLrcLineSpaceHeight);
-                    }
+
+//                    if (mOffset < 0) {
+//                        mOffset = Math.max(mOffset, -getTextHeight(0) - mLrcLineSpaceHeight);
+//                    }
                     float maxHeight = getItemOffsetY(getLrcCount() - 1);
-                    if (mOffset > maxHeight) {
-                        mOffset = Math.min(mOffset, maxHeight + getTextHeight(getLrcCount() - 1) + mLrcLineSpaceHeight);
+//                    if (mOffset > maxHeight) {
+//                        mOffset = Math.min(mOffset, maxHeight + getTextHeight(getLrcCount() - 1) + mLrcLineSpaceHeight);
+//                    }
+                    if (mOffset < 0 || mOffset > maxHeight) {
+                        moveY /= 3.5f;
                     }
+                    mOffset -= moveY;
                     mLastMotionY = event.getY();
                     invalidateView();
                 }
