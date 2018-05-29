@@ -15,9 +15,10 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_weight="1"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
         app:currentIndicateLrcColor="@color/colorAccent"
         app:indicatorTextColor="@android:color/holo_orange_dark"
-        app:lrcHorizontalPadding="30dp"
         app:playIcon="@drawable/play_music"/>
 
     <LinearLayout

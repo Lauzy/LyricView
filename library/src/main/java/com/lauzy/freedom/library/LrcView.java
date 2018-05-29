@@ -55,8 +55,6 @@ public class LrcView extends View {
     private int mTouchDelay;
     private int mNormalColor;
     private int mCurrentPlayLineColor;
-    private float mHorizontalPadding;
-    private float mVerticalPadding;
     private float mNoLrcTextSize;
     private int mNoLrcTextColor;
     //是否拖拽中，否的话响应onClick事件
@@ -104,8 +102,6 @@ public class LrcView extends View {
         mIndicatorTouchDelay = typedArray.getInt(R.styleable.LrcView_indicatorTouchDelay, 2500);
         mNormalColor = typedArray.getColor(R.styleable.LrcView_lrcNormalTextColor, Color.GRAY);
         mCurrentPlayLineColor = typedArray.getColor(R.styleable.LrcView_lrcCurrentTextColor, Color.BLUE);
-        mHorizontalPadding = typedArray.getDimension(R.styleable.LrcView_lrcHorizontalPadding, 0f);
-        mVerticalPadding = typedArray.getDimension(R.styleable.LrcView_lrcVerticalPadding, 0f);
         mNoLrcTextSize = typedArray.getDimension(R.styleable.LrcView_noLrcTextSize, dp2px(context, 20));
         mNoLrcTextColor = typedArray.getColor(R.styleable.LrcView_noLrcTextColor, Color.BLACK);
         mIndicatorLineWidth = typedArray.getDimension(R.styleable.LrcView_indicatorLineHeight, dp2px(context, 0.5f));
@@ -128,7 +124,7 @@ public class LrcView extends View {
         mScaledTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         mMaximumFlingVelocity = ViewConfiguration.get(context).getScaledMaximumFlingVelocity();
         mMinimumFlingVelocity = ViewConfiguration.get(context).getScaledMinimumFlingVelocity();
-        mOverScroller = new OverScroller(context,new DecelerateInterpolator());
+        mOverScroller = new OverScroller(context, new DecelerateInterpolator());
         mOverScroller.setFriction(0.1f);
 //        ViewConfiguration.getScrollFriction();  默认摩擦力 0.015f
 
@@ -161,11 +157,11 @@ public class LrcView extends View {
     }
 
     private int getLrcWidth() {
-        return (int) (getWidth() - mHorizontalPadding * 2);
+        return getWidth() - getPaddingLeft() - getPaddingRight();
     }
 
     private int getLrcHeight() {
-        return (int) (getHeight() - mVerticalPadding * 2);
+        return getHeight();
     }
 
     private boolean isLrcEmpty() {
@@ -192,8 +188,8 @@ public class LrcView extends View {
         int indicatePosition = getIndicatePosition();
         mTextPaint.setTextSize(mLrcTextSize);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
-        float y = getLrcHeight() / 2 + mVerticalPadding;
-        float x = getLrcWidth() / 2 + mHorizontalPadding;
+        float y = getLrcHeight() / 2;
+        float x = getLrcWidth() / 2 + getPaddingLeft();
         for (int i = 0; i < getLrcCount(); i++) {
             if (i > 0) {
                 y += (getTextHeight(i - 1) + getTextHeight(i)) / 2 + mLrcLineSpaceHeight;
@@ -248,7 +244,7 @@ public class LrcView extends View {
         canvas.save();
         StaticLayout staticLayout = new StaticLayout(mDefaultContent, mTextPaint,
                 getLrcWidth(), Layout.Alignment.ALIGN_NORMAL, 1f, 0f, false);
-        canvas.translate(getLrcWidth() / 2 + mHorizontalPadding, getLrcHeight() / 2 + mVerticalPadding);
+        canvas.translate(getLrcWidth() / 2 + getPaddingLeft(), getLrcHeight() / 2);
         staticLayout.draw(canvas);
         canvas.restore();
     }
@@ -582,24 +578,6 @@ public class LrcView extends View {
 
     public void setCurrentPlayLineColor(@ColorInt int currentPlayLineColor) {
         mCurrentPlayLineColor = currentPlayLineColor;
-        invalidateView();
-    }
-
-    public float getHorizontalPadding() {
-        return mHorizontalPadding;
-    }
-
-    public void setHorizontalPadding(float horizontalPadding) {
-        mHorizontalPadding = horizontalPadding;
-        invalidateView();
-    }
-
-    public float getVerticalPadding() {
-        return mVerticalPadding;
-    }
-
-    public void setVerticalPadding(float verticalPadding) {
-        mVerticalPadding = verticalPadding;
         invalidateView();
     }
 

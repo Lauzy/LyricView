@@ -3,7 +3,7 @@
 
 [中文版 readme](https://github.com/Lauzy/LyricView/blob/master/README_CN.md)
 
-[download demo apk](https://github.com/Lauzy/LyricView/raw/master/apk/lrc_demo.apk).
+[download demo apk](https://github.com/Lauzy/LyricView/raw/master/apk/demo.apk).
 
 ## Screenshots
 
@@ -86,8 +86,6 @@ Set the description while there is no lyric data:
         <attr name="lrcLineSpaceSize" format="dimension"/>
         <attr name="lrcNormalTextColor" format="reference|color"/>
         <attr name="lrcCurrentTextColor" format="reference|color"/>
-        <attr name="lrcHorizontalPadding" format="dimension"/>
-        <attr name="lrcVerticalPadding" format="dimension"/>
         <attr name="lrcTouchDelay" format="integer"/>   //delay of rolling back
         <attr name="noLrcTextSize" format="dimension"/>
         <attr name="noLrcTextColor" format="reference|color"/>

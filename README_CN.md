@@ -1,7 +1,7 @@
 # LyricView
 [![](https://jitpack.io/v/Lauzy/LyricView.svg)](https://jitpack.io/#Lauzy/LyricView)
 
-[下载 apk 体验](https://github.com/Lauzy/LyricView/raw/master/apk/lrc_demo.apk).
+[下载 apk 体验](https://github.com/Lauzy/LyricView/raw/master/apk/demo.apk).
 
 ## 截图
 
@@ -84,8 +84,6 @@ Xml 文件：
         <attr name="lrcLineSpaceSize" format="dimension"/>
         <attr name="lrcNormalTextColor" format="reference|color"/>
         <attr name="lrcCurrentTextColor" format="reference|color"/>
-        <attr name="lrcHorizontalPadding" format="dimension"/>
-        <attr name="lrcVerticalPadding" format="dimension"/>
         <attr name="lrcTouchDelay" format="integer"/>   //手动滑动后，回滚至当前播放位置的延迟
         <attr name="noLrcTextSize" format="dimension"/>
         <attr name="noLrcTextColor" format="reference|color"/>
