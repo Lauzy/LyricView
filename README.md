@@ -36,7 +36,6 @@ Xml file：
             ...
             app:currentIndicateLrcColor="@color/colorAccent"
             app:indicatorTextColor="@android:color/holo_orange_dark"
-            app:lrcHorizontalPadding="30dp"
             app:playIcon="@drawable/play_music"/>
 
 ```
