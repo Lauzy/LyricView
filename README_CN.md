@@ -3,6 +3,8 @@
 
 [下载 apk 体验](https://github.com/Lauzy/LyricView/raw/master/apk/demo.apk).
 
+[博客介绍: https://www.jianshu.com/p/ab735509cc74](https://www.jianshu.com/p/ab735509cc74)
+
 ## 截图
 
 <img src="/screenshots/20180428_LyricView_screen_shot_01.png" alt="screenshot" title="screenshot" width="270" height="460" />  <img src="/screenshots/20180428_LyricView_screen_shot_02.png" alt="screenshot" title="screenshot" width="270" height="460" />
