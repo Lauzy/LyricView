@@ -66,8 +66,6 @@ public class LrcView extends View {
     private boolean isShowTimeIndicator;
     private Rect mPlayRect;
     private Paint mIndicatorPaint;
-    private Paint.FontMetricsInt mFontMetrics;
-    private Rect mIndicateTimeBounds;
     private float mIndicatorLineWidth;
     private float mIndicatorTextSize;
     private int mCurrentIndicateLineTextColor;
@@ -140,8 +138,6 @@ public class LrcView extends View {
         mIndicatorPaint.setColor(mIndicatorLineColor);
         mPlayRect = new Rect();
         mIndicatorPaint.setTextSize(mIndicatorTextSize);
-        mFontMetrics = mIndicatorPaint.getFontMetricsInt();
-        mIndicateTimeBounds = new Rect();
     }
 
     @Override
@@ -207,13 +203,12 @@ public class LrcView extends View {
         if (isShowTimeIndicator) {
             mPlayDrawable.draw(canvas);
             long time = mLrcData.get(indicatePosition).getTime();
-            mIndicatorPaint.getTextBounds(LrcHelper.formatTime(time), 0,
-                    (LrcHelper.formatTime(time)).length(), mIndicateTimeBounds);
+            float timeWidth = mIndicatorPaint.measureText(LrcHelper.formatTime(time));
             mIndicatorPaint.setColor(mIndicatorLineColor);
             canvas.drawLine(mPlayRect.right + mIconLineGap, getHeight() / 2,
-                    getWidth() - mIndicateTimeBounds.width() * 1.4f, getHeight() / 2, mIndicatorPaint);
-            int baseX = (int) (getWidth() - mIndicateTimeBounds.width() * 1.2f);
-            int baseline = getHeight() / 2 - (mFontMetrics.descent - mFontMetrics.ascent) / 2 - mFontMetrics.ascent;
+                    getWidth() - timeWidth * 1.3f, getHeight() / 2, mIndicatorPaint);
+            int baseX = (int) (getWidth() - timeWidth * 1.1f);
+            float baseline = getHeight() / 2 - (mIndicatorPaint.descent() - mIndicatorPaint.ascent()) / 2 - mIndicatorPaint.ascent();
             mIndicatorPaint.setColor(mIndicatorTextColor);
             canvas.drawText(LrcHelper.formatTime(time), baseX, baseline, mIndicatorPaint);
         }
