@@ -44,10 +44,17 @@ Xml file：
 
 ## Functions:
 
-Set up lyric data:
+Parse lyric and set lyric data:
 
 ```java
 
+      From file:
+      List<Lrc> lrcs = LrcHelper.parseLrcFromFile(file);
+
+      From asset:
+      List<Lrc> lrcs = LrcHelper.parseLrcFromAssets(context, assetFileName);
+
+      Set lyric data：
       mLrcView.setLrcData(lrcs);
 
 ```

@@ -42,10 +42,17 @@ Xml 文件：
 
 ## 功能:
 
-设置歌词数据:
+解析歌词并设置歌词数据:
 
 ```java
 
+      从文件读取:
+      List<Lrc> lrcs = LrcHelper.parseLrcFromFile(file);
+
+      从asset资源中读取:
+      List<Lrc> lrcs = LrcHelper.parseLrcFromAssets(context, assetFileName);
+
+      设置歌词数据：
       mLrcView.setLrcData(lrcs);
 
 ```
