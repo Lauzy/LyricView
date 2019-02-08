@@ -218,12 +218,17 @@ public class LrcView extends View {
 
     private void drawLrc(Canvas canvas, float x, float y, int i) {
         String text = mLrcData.get(i).getText();
-        StaticLayout staticLayout = mLrcMap.get(text);
+        BidiFormatter.Builder builder = new BidiFormatter.Builder();
+        builder.stereoReset(true);
+        android.support.v4.text.BidiFormatter formatter = builder.build();
+        String formattedText = formatter.unicodeWrap(text);
+
+        StaticLayout staticLayout = mLrcMap.get(formattedText);
         if (staticLayout == null) {
             mTextPaint.setTextSize(mLrcTextSize);
-            staticLayout = new StaticLayout(text, mTextPaint, getLrcWidth(),
+            staticLayout = new StaticLayout(formattedText, mTextPaint, getLrcWidth(),
                     Layout.Alignment.ALIGN_NORMAL, 1f, 0f, false);
-            mLrcMap.put(text, staticLayout);
+            mLrcMap.put(formattedText, staticLayout);
         }
         canvas.save();
         canvas.translate(x, y - staticLayout.getHeight() / 2 - mOffset);
