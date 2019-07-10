@@ -77,6 +77,8 @@ public class LrcView extends View {
     private boolean isEnableShowIndicator = true;
     private int mIndicatorTextColor;
     private int mIndicatorTouchDelay;
+    private boolean isCurrentTextBold;
+    private boolean isLrcIndicatorTextBold;
 
     public LrcView(Context context) {
         this(context, null);
@@ -113,6 +115,8 @@ public class LrcView extends View {
         mIconHeight = typedArray.getDimension(R.styleable.LrcView_playIconHeight, dp2px(context, 20));
         mPlayDrawable = typedArray.getDrawable(R.styleable.LrcView_playIcon);
         mPlayDrawable = mPlayDrawable == null ? ContextCompat.getDrawable(context, R.drawable.play_icon) : mPlayDrawable;
+        isCurrentTextBold = typedArray.getBoolean(R.styleable.LrcView_isLrcCurrentTextBold, false);
+        isLrcIndicatorTextBold = typedArray.getBoolean(R.styleable.LrcView_isLrcIndicatorTextBold, false);
         typedArray.recycle();
 
         setupConfigs(context);
@@ -184,17 +188,20 @@ public class LrcView extends View {
         int indicatePosition = getIndicatePosition();
         mTextPaint.setTextSize(mLrcTextSize);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
-        float y = getLrcHeight() / 2;
-        float x = getLrcWidth() / 2 + getPaddingLeft();
+        float y = getLrcHeight() / 2f;
+        float x = getLrcWidth() / 2f + getPaddingLeft();
         for (int i = 0; i < getLrcCount(); i++) {
             if (i > 0) {
-                y += (getTextHeight(i - 1) + getTextHeight(i)) / 2 + mLrcLineSpaceHeight;
+                y += (getTextHeight(i - 1) + getTextHeight(i)) / 2f + mLrcLineSpaceHeight;
             }
             if (mCurrentLine == i) {
                 mTextPaint.setColor(mCurrentPlayLineColor);
+                mTextPaint.setFakeBoldText(isCurrentTextBold);
             } else if (indicatePosition == i && isShowTimeIndicator) {
+                mTextPaint.setFakeBoldText(isLrcIndicatorTextBold);
                 mTextPaint.setColor(mCurrentIndicateLineTextColor);
             } else {
+                mTextPaint.setFakeBoldText(false);
                 mTextPaint.setColor(mNormalColor);
             }
             drawLrc(canvas, x, y, i);
@@ -205,10 +212,10 @@ public class LrcView extends View {
             long time = mLrcData.get(indicatePosition).getTime();
             float timeWidth = mIndicatorPaint.measureText(LrcHelper.formatTime(time));
             mIndicatorPaint.setColor(mIndicatorLineColor);
-            canvas.drawLine(mPlayRect.right + mIconLineGap, getHeight() / 2,
-                    getWidth() - timeWidth * 1.3f, getHeight() / 2, mIndicatorPaint);
+            canvas.drawLine(mPlayRect.right + mIconLineGap, getHeight() / 2f,
+                    getWidth() - timeWidth * 1.3f, getHeight() / 2f, mIndicatorPaint);
             int baseX = (int) (getWidth() - timeWidth * 1.1f);
-            float baseline = getHeight() / 2 - (mIndicatorPaint.descent() - mIndicatorPaint.ascent()) / 2 - mIndicatorPaint.ascent();
+            float baseline = getHeight() / 2f - (mIndicatorPaint.descent() - mIndicatorPaint.ascent()) / 2 - mIndicatorPaint.ascent();
             mIndicatorPaint.setColor(mIndicatorTextColor);
             canvas.drawText(LrcHelper.formatTime(time), baseX, baseline, mIndicatorPaint);
         }
@@ -226,7 +233,7 @@ public class LrcView extends View {
             mLrcMap.put(text, staticLayout);
         }
         canvas.save();
-        canvas.translate(x, y - staticLayout.getHeight() / 2 - mOffset);
+        canvas.translate(x, y - staticLayout.getHeight() / 2f - mOffset);
         staticLayout.draw(canvas);
         canvas.restore();
     }
@@ -239,7 +246,7 @@ public class LrcView extends View {
         canvas.save();
         StaticLayout staticLayout = new StaticLayout(mDefaultContent, mTextPaint,
                 getLrcWidth(), Layout.Alignment.ALIGN_NORMAL, 1f, 0f, false);
-        canvas.translate(getLrcWidth() / 2 + getPaddingLeft(), getLrcHeight() / 2);
+        canvas.translate(getLrcWidth() / 2f + getPaddingLeft(), getLrcHeight() / 2f);
         staticLayout.draw(canvas);
         canvas.restore();
     }
@@ -435,10 +442,10 @@ public class LrcView extends View {
         }
 
         mVelocityTracker.computeCurrentVelocity(1000, mMaximumFlingVelocity);
-        float YVelocity = mVelocityTracker.getYVelocity();
-        float absYVelocity = Math.abs(YVelocity);
+        float yVelocity = mVelocityTracker.getYVelocity();
+        float absYVelocity = Math.abs(yVelocity);
         if (absYVelocity > mMinimumFlingVelocity) {
-            mOverScroller.fling(0, (int) mOffset, 0, (int) (-YVelocity), 0,
+            mOverScroller.fling(0, (int) mOffset, 0, (int) (-yVelocity), 0,
                     0, 0, (int) getItemOffsetY(getLrcCount() - 1),
                     0, (int) getTextHeight(0));
             invalidateView();
@@ -644,6 +651,16 @@ public class LrcView extends View {
 
     public void setIndicatorTextColor(int indicatorTextColor) {
         mIndicatorTextColor = indicatorTextColor;
+        invalidateView();
+    }
+
+    public void setLrcCurrentTextBold(boolean bold) {
+        isCurrentTextBold = bold;
+        invalidateView();
+    }
+
+    public void setLrcIndicatorTextBold(boolean bold) {
+        isLrcIndicatorTextBold = bold;
         invalidateView();
     }
 }

@@ -108,6 +108,8 @@ Set the description while there is no lyric data:
         <attr name="playIconWidth" format="dimension"/>
         <attr name="playIconHeight" format="dimension"/>
         <attr name="playIcon" format="reference"/>   // indicator's playing icon
+        <attr name="isLrcCurrentTextBold" format="boolean"/>
+        <attr name="isLrcIndicatorTextBold" format="boolean"/>
 
 ```
 
