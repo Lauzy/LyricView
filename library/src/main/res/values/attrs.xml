@@ -19,6 +19,8 @@
         <attr name="playIconWidth" format="dimension"/>
         <attr name="playIconHeight" format="dimension"/>
         <attr name="playIcon" format="reference"/>
+        <attr name="isLrcCurrentTextBold" format="boolean"/>
+        <attr name="isLrcIndicatorTextBold" format="boolean"/>
     </declare-styleable>
 
 </resources>

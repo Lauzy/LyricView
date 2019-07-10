@@ -106,6 +106,8 @@ Xml 文件：
         <attr name="playIconWidth" format="dimension"/>
         <attr name="playIconHeight" format="dimension"/>
         <attr name="playIcon" format="reference"/>   // 指示器图标
+        <attr name="isLrcCurrentTextBold" format="boolean"/>
+        <attr name="isLrcIndicatorTextBold" format="boolean"/>
 
 ```
 
