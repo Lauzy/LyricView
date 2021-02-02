@@ -177,6 +177,12 @@ public class LrcView extends View {
         mLrcData = lrcData;
         invalidate();
     }
+    
+    public void setTypeFace(Typeface typeface){
+        if(mTextPaint!=null){
+            mTextPaint.setTypeface(typeface);
+        }
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
